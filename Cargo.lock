@@ -1560,6 +1560,7 @@ dependencies = [
  "lru",
  "multiaddr",
  "nix 0.17.0",
+ "organix",
  "pin-project",
  "pin-utils",
  "poldercast",
@@ -2242,6 +2243,33 @@ dependencies = [
  "libc",
  "pkg-config",
  "vcpkg",
+]
+
+[[package]]
+name = "organix"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "872458a23d334b96c2cf9e363bf0e2773f8bfa07bad10992a1e3f5c8136e9c36"
+dependencies = [
+ "async-trait",
+ "futures-util",
+ "organix-derive",
+ "thiserror",
+ "tokio 0.2.21",
+ "tracing",
+ "tracing-futures",
+]
+
+[[package]]
+name = "organix-derive"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "099b1f632577c1f8ec07d6f76c71dfe38055aac93fe051496f3a528d288acb6d"
+dependencies = [
+ "proc-macro-error",
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]
@@ -3768,6 +3796,7 @@ dependencies = [
  "mio-named-pipes",
  "mio-uds",
  "num_cpus",
+ "parking_lot 0.10.2",
  "pin-project-lite",
  "signal-hook-registry",
  "slab 0.4.2",
