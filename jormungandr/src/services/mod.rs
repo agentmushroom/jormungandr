@@ -2,10 +2,16 @@
 //! in jormungandr.
 //!
 mod config;
+mod console;
+mod monitor;
 
 use organix::{service::ServiceManager, Organix, WatchdogBuilder};
 
-pub use self::config::{ConfigApi, ConfigService};
+pub use self::{
+    config::{ConfigApi, ConfigService},
+    console::ConsoleService,
+    monitor::MonitorService,
+};
 
 /// All services of the Jörmungandr app to be added in this field.
 ///
@@ -17,6 +23,11 @@ pub use self::config::{ConfigApi, ConfigService};
 #[derive(Organix)]
 #[runtime(shared)]
 struct JormungandrApp {
+    /// Node's monitoring service
+    ///
+    /// This is responsible to boot the other services and
+    /// to keep them up and running as it is necessary
+    monitoring: ServiceManager<MonitorService>,
     /// Node's configuration service
     ///
     /// the configuration service can run on the shared runtime as
@@ -36,9 +47,9 @@ pub fn entry() {
 
     watchdog.spawn(async move {
         controller
-            .start::<ConfigService>()
+            .start::<MonitorService>()
             .await
-            .expect("Cannot start the configuration service");
+            .expect("Cannot start the Monitoring service");
     });
 
     watchdog.wait_finished()
