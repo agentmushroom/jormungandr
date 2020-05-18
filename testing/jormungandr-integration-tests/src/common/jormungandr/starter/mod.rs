@@ -447,7 +447,7 @@ impl Starter {
 
 pub fn restart_jormungandr_node(process: JormungandrProcess, role: Role) -> JormungandrProcess {
     let config = process.config.clone();
-    let alias = process.alias();
+    let alias = process.alias().to_string().clone();
     std::mem::drop(process);
 
     Starter::new()
